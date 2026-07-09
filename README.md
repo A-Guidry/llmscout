@@ -56,7 +56,14 @@ llmscout key   # → ✓ LLM key found (sk-a…f3k2) via .env:LLMSCOUT_LLM_API_K
 
 ## Methodology — honest by design
 
-Weights live in one auditable file ([`src/core/weights.ts`](src/core/weights.ts)) and are **pre-calibration drafts**: hypotheses being validated against observed citation behavior on real pages. Notably, `llms.txt` is weighted at 3/100 because we haven't observed it moving citations yet — we keep signals honest rather than fashionable. Run `llmscout --explain` or see `/methodology` in the web UI.
+Weights live in one auditable file ([`src/core/weights.ts`](src/core/weights.ts)) and are **evidence-informed (v0.2, July 2026)**: each weight is tied to published research and to our own live citation tests. The full rationale, evidence table, and citation list are in [`METHODOLOGY.md`](METHODOLOGY.md). The short version of how weights are set:
+
+- **Controlled experiments outrank correlations.** Three exist publicly: the GEO paper (KDD 2024 — adding statistics/citations/quotes lifted generative visibility 30–41%), Ahrefs' schema intervention test (May 2026 — newly added JSON-LD produced **no** citation uplift, so we weight schema at just 8), and the Vercel/MERJ crawler study (Dec 2024 — GPTBot/ClaudeBot/PerplexityBot execute zero JavaScript, so server-rendered content weighs 12).
+- **We test our own tool against reality.** We run real queries through Perplexity, ChatGPT and Gemini, capture what they actually cite, and scan cited vs non-cited pages. Crawler access was the only signal positive in both test rounds — hence its top weight (25).
+- **Nulls get weighted like nulls.** llms.txt sits at 2/100: Google says no AI system uses it, and two independent large-N studies (SE Ranking 300K domains, Trakkr 38K) found zero citation effect.
+- **We publish what the score can't do.** Engines cite high-authority domains even when their on-page readiness scores an F (we watched Perplexity cite a bank page we score 31/100). LLMScout predicts citations among comparable-authority sites competing on the same topic — the on-page half you control.
+
+Run `llmscout --explain` or see `/methodology` in the web UI for the same information.
 
 ## Development
 

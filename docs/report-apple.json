@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "url": "https://www.apple.com/",
   "finalUrl": "https://www.apple.com/",
-  "fetchedAt": "2026-07-09T15:00:04.330Z",
+  "fetchedAt": "2026-07-09T15:19:45.582Z",
   "score": 32,
   "grade": "F",
   "gradeLabel": "Invisible",
@@ -199,7 +199,7 @@
   "warnings": [],
   "meta": {
     "httpStatus": 200,
-    "durationMs": 174,
+    "durationMs": 220,
     "bytes": 249165,
     "redirected": false,
     "contentType": "text/html; charset=utf-8"

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "url": "https://en.wikipedia.org/wiki/Search_engine_optimization",
   "finalUrl": "https://en.wikipedia.org/wiki/Search_engine_optimization",
-  "fetchedAt": "2026-07-09T15:00:02.643Z",
+  "fetchedAt": "2026-07-09T15:19:43.988Z",
   "score": 78,
   "grade": "B-",
   "gradeLabel": "Mostly ready",
@@ -191,7 +191,7 @@
   "warnings": [],
   "meta": {
     "httpStatus": 200,
-    "durationMs": 274,
+    "durationMs": 271,
     "bytes": 395764,
     "redirected": false,
     "contentType": "text/html; charset=UTF-8"

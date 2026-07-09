@@ -156,6 +156,28 @@
     <p style="font-size:13.5px;line-height:1.5;color:#8891a8;margin:0;">We sort gaps by impact × effort so the top of your list is always the fastest route to a higher grade.</p>
   </div></div>
   </div>
+
+  <div style="background:#fff;border-radius:20px;padding:32px 36px;">
+    <h2 style="font-size:22px;font-weight:700;margin:0 0 6px;">How the weights are set — evidence, not fashion</h2>
+    <p style="font-size:14.5px;line-height:1.6;color:#59617A;margin:0 0 16px;max-width:820px;">Each weight is tied to the strength of the evidence behind it, in descending order of trust: <strong>controlled experiments</strong>, <strong>our own live citation tests</strong> (real queries run through Perplexity, ChatGPT and Gemini in July 2026, with cited pages scanned against same-query non-cited controls), and <strong>large-scale correlational studies</strong>. Three findings shaped v0.2 the most:</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 20px;" class="grid3">
+      <div style="border-radius:14px;background:#F5F7FE;padding:18px;"><div style="font-size:14px;font-weight:700;margin-bottom:6px;">Crawler access earned its 25</div><p style="font-size:13px;line-height:1.5;color:#59617A;margin:0;">The only check that separated cited from non-cited pages positively in both of our live test rounds — and a mechanical prerequisite besides.</p></div>
+      <div style="border-radius:14px;background:#F5F7FE;padding:18px;"><div style="font-size:14px;font-weight:700;margin-bottom:6px;">Schema was demoted to 8</div><p style="font-size:13px;line-height:1.5;color:#59617A;margin:0;">Ahrefs' controlled test (1,885 pages adding JSON-LD vs 4,000 controls, May 2026) found no citation uplift. Our own data agreed. The "3× more likely" stat is a confound.</p></div>
+      <div style="border-radius:14px;background:#F5F7FE;padding:18px;"><div style="font-size:14px;font-weight:700;margin-bottom:6px;">llms.txt sits at 2</div><p style="font-size:13px;line-height:1.5;color:#59617A;margin:0;">Google: "no AI system currently uses llms.txt." Two independent large-N studies found zero citation effect. We score it for transparency, not because it works.</p></div>
+    </div>
+    <h3 style="font-size:16px;font-weight:700;margin:0 0 10px;">Sources</h3>
+    <ol style="font-size:13.5px;line-height:1.7;color:#59617A;margin:0;padding-left:20px;">
+      <li>Aggarwal et&nbsp;al., <a href="https://arxiv.org/abs/2311.09735">"GEO: Generative Engine Optimization"</a> — KDD 2024. Controlled experiments: statistics/citations/quotes +30–41% generative visibility; keyword stuffing null.</li>
+      <li>Vercel + MERJ, <a href="https://vercel.com/blog/the-rise-of-the-ai-crawler">"The Rise of the AI Crawler"</a> — Dec 2024. GPTBot, ClaudeBot and PerplexityBot execute zero JavaScript.</li>
+      <li>Ahrefs, <a href="https://ahrefs.com/blog/schema-ai-citations/">schema intervention test</a> — May 2026. No citation uplift from newly added JSON-LD on any platform.</li>
+      <li>Google Search Central, <a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide">"Optimizing your website for generative AI features"</a> — May 2026. No llms.txt, no special markup, no chunking needed.</li>
+      <li>SE Ranking, <a href="https://seranking.com/blog/llms-txt/">llms.txt study, 300K domains</a> — Nov 2025. No relationship between llms.txt and AI citations.</li>
+      <li>Profound, <a href="https://www.tryprofound.com/blog/ai-platform-citation-patterns">680M-citation analysis</a> — 2025. ~11% domain overlap between ChatGPT and Perplexity citations.</li>
+      <li>Search Engine Land, <a href="https://searchengineland.com/claude-visibility-brave-search-rankings-480053">Claude ↔ Brave Search</a> — Jun 2026. Claude citations match Brave's top results 86.7% of the time.</li>
+      <li>Ahrefs, <a href="https://ahrefs.com/blog/ai-overview-citations-top-10/">AI Overview citation overlap</a> — 2025–2026. Top-10 ranking correlates with (but doesn't guarantee) AIO citations.</li>
+    </ol>
+    <p style="font-size:13px;line-height:1.6;color:#8891a8;margin:16px 0 0;">Full evidence table, our test data, and the weight changelog: <a href="https://github.com/A-Guidry/llmscout/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
+  </div>
 </div>
 </div>
 </body>

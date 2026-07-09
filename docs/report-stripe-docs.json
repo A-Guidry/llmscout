@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "url": "https://docs.stripe.com/",
   "finalUrl": "https://docs.stripe.com/",
-  "fetchedAt": "2026-07-09T15:00:03.846Z",
+  "fetchedAt": "2026-07-09T15:19:45.041Z",
   "score": 57,
   "grade": "D+",
   "gradeLabel": "Hard to quote",
@@ -195,8 +195,8 @@
   "warnings": [],
   "meta": {
     "httpStatus": 200,
-    "durationMs": 782,
-    "bytes": 1246395,
+    "durationMs": 647,
+    "bytes": 1246407,
     "redirected": false,
     "contentType": "text/html; charset=utf-8"
   }
