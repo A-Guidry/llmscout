@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "url": "https://docs.stripe.com/",
+  "finalUrl": "https://docs.stripe.com/",
+  "fetchedAt": "2026-07-09T15:00:03.846Z",
+  "score": 57,
+  "grade": "D+",
+  "gradeLabel": "Hard to quote",
+  "summary": "Hard to quote: structural work needed — start with json-ld schema and extractable q&a before polishing anything else.",
+  "checks": [
+    {
+      "id": "crawler-access",
+      "label": "AI crawler access",
+      "what": "Can AI bots fetch the page at all?",
+      "weight": 25,
+      "score": 1,
+      "earned": 25,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "robots.txt allows GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended."
+        }
+      ]
+    },
+    {
+      "id": "answer-first",
+      "label": "Answer-first (BLUF)",
+      "what": "Is the answer in the first 150 words?",
+      "weight": 12,
+      "score": 0.7,
+      "earned": 8,
+      "status": "warn",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "A substantive, quotable answer appears within the first 150 words."
+        }
+      ]
+    },
+    {
+      "id": "json-ld",
+      "label": "JSON-LD schema",
+      "what": "Structured data an engine can parse.",
+      "weight": 8,
+      "score": 0,
+      "earned": 0,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "error",
+          "message": "No JSON-LD structured data found.",
+          "fix": "Add Article schema on content pages and FAQPage wherever you answer real questions.",
+          "snippet": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"…\",\n  \"author\": { \"@type\": \"Person\", \"name\": \"…\" },\n  \"datePublished\": \"2026-01-01\",\n  \"dateModified\": \"2026-07-01\"\n}\n</script>"
+        }
+      ]
+    },
+    {
+      "id": "heading-hierarchy",
+      "label": "Heading hierarchy",
+      "what": "Clean, ordered H1–H3 outline.",
+      "weight": 10,
+      "score": 1,
+      "earned": 10,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "Single H1: \"Documentation\"."
+        },
+        {
+          "severity": "pass",
+          "message": "No skipped heading levels."
+        }
+      ]
+    },
+    {
+      "id": "eeat-signals",
+      "label": "Author / E-E-A-T",
+      "what": "Named author, dates, credentials.",
+      "weight": 9,
+      "score": 0.2,
+      "earned": 2,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "error",
+          "message": "No author anywhere — not in schema, not as a visible byline.",
+          "fix": "Add a visible byline and an author node in schema.",
+          "snippet": "\"author\": { \"@type\": \"Person\", \"name\": \"Jane Okafor\", \"url\": \"https://example.com/about/jane\" }"
+        },
+        {
+          "severity": "error",
+          "message": "No published or modified date anywhere in the markup.",
+          "fix": "Show a visible date and mirror it in schema — freshness is a citation signal."
+        }
+      ]
+    },
+    {
+      "id": "qa-structure",
+      "label": "Extractable Q&A",
+      "what": "Question headings with tight answers.",
+      "weight": 10,
+      "score": 0,
+      "earned": 0,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "warn",
+          "message": "No question-formed headings found.",
+          "fix": "Turn at least your key sections into question headings with a direct answer in the first paragraph below."
+        },
+        {
+          "severity": "error",
+          "message": "No Q&A-shaped content at all — nothing here maps onto a user's question.",
+          "fix": "Add a FAQ section (with FAQPage schema) covering the 3–5 questions this page should win."
+        }
+      ]
+    },
+    {
+      "id": "stat-density",
+      "label": "Named-statistic density",
+      "what": "Concrete, quotable facts and figures.",
+      "weight": 12,
+      "score": 0.8,
+      "earned": 10,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "Strong: ~13 concrete figures across 229 words."
+        }
+      ]
+    },
+    {
+      "id": "content-ratio",
+      "label": "Content-to-markup ratio",
+      "what": "Real text vs. wrapper markup.",
+      "weight": 12,
+      "score": 0,
+      "earned": 0,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "error",
+          "message": "Text-to-HTML ratio is 0.2% (229 words in 1217 KB).",
+          "fix": "Cut wrapper markup, inline scripts and boilerplate; more of each byte should be content an engine can use."
+        }
+      ]
+    },
+    {
+      "id": "llms-txt",
+      "label": "llms.txt",
+      "what": "Optional AI-guidance manifest.",
+      "weight": 2,
+      "score": 1,
+      "earned": 2,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "llms.txt present and markdown-formatted. (Optional signal — low current yield.)"
+        }
+      ]
+    }
+  ],
+  "topFixes": [
+    {
+      "rank": 1,
+      "checkId": "json-ld",
+      "title": "Ship Article + FAQPage JSON-LD",
+      "body": "No JSON-LD structured data found. Add Article schema on content pages and FAQPage wherever you answer real questions.",
+      "snippet": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"…\",\n  \"author\": { \"@type\": \"Person\", \"name\": \"…\" },\n  \"datePublished\": \"2026-01-01\",\n  \"dateModified\": \"2026-07-01\"\n}\n</script>",
+      "impactPts": 8,
+      "ease": "Easy"
+    },
+    {
+      "rank": 2,
+      "checkId": "qa-structure",
+      "title": "Add extractable Q&A sections",
+      "body": "No question-formed headings found. Turn at least your key sections into question headings with a direct answer in the first paragraph below.",
+      "impactPts": 10,
+      "ease": "Medium"
+    },
+    {
+      "rank": 3,
+      "checkId": "eeat-signals",
+      "title": "Add a visible byline and dates",
+      "body": "No author anywhere — not in schema, not as a visible byline. Add a visible byline and an author node in schema.",
+      "snippet": "\"author\": { \"@type\": \"Person\", \"name\": \"Jane Okafor\", \"url\": \"https://example.com/about/jane\" }",
+      "impactPts": 7,
+      "ease": "Easy"
+    }
+  ],
+  "warnings": [],
+  "meta": {
+    "httpStatus": 200,
+    "durationMs": 782,
+    "bytes": 1246395,
+    "redirected": false,
+    "contentType": "text/html; charset=utf-8"
+  }
+}

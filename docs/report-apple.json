@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "url": "https://www.apple.com/",
+  "finalUrl": "https://www.apple.com/",
+  "fetchedAt": "2026-07-09T15:00:04.330Z",
+  "score": 32,
+  "grade": "F",
+  "gradeLabel": "Invisible",
+  "summary": "Invisible: AI engines currently have almost nothing here they can fetch, parse or quote. Work the fix list top-down.",
+  "checks": [
+    {
+      "id": "crawler-access",
+      "label": "AI crawler access",
+      "what": "Can AI bots fetch the page at all?",
+      "weight": 25,
+      "score": 0,
+      "earned": 0,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "error",
+          "message": "robots.txt blocks GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended.",
+          "fix": "Allow the AI crawlers you want citations from in robots.txt.",
+          "snippet": "User-agent: GPTBot\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /"
+        }
+      ]
+    },
+    {
+      "id": "answer-first",
+      "label": "Answer-first (BLUF)",
+      "what": "Is the answer in the first 150 words?",
+      "weight": 12,
+      "score": 0.7,
+      "earned": 8,
+      "status": "warn",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "A substantive, quotable answer appears within the first 150 words."
+        }
+      ]
+    },
+    {
+      "id": "json-ld",
+      "label": "JSON-LD schema",
+      "what": "Structured data an engine can parse.",
+      "weight": 8,
+      "score": 0.3,
+      "earned": 2,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "warn",
+          "message": "Only supporting types found (Organization, WebSite, WebPage). No Article/FAQPage/Product markup.",
+          "fix": "Add a high-value type that describes the page content itself, not just the site.",
+          "snippet": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"…?\",\n    \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"…\" }\n  }]\n}\n</script>"
+        }
+      ]
+    },
+    {
+      "id": "heading-hierarchy",
+      "label": "Heading hierarchy",
+      "what": "Clean, ordered H1–H3 outline.",
+      "weight": 10,
+      "score": 1,
+      "earned": 10,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "Single H1: \"Apple\"."
+        },
+        {
+          "severity": "pass",
+          "message": "No skipped heading levels."
+        }
+      ]
+    },
+    {
+      "id": "eeat-signals",
+      "label": "Author / E-E-A-T",
+      "what": "Named author, dates, credentials.",
+      "weight": 9,
+      "score": 0.2,
+      "earned": 2,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "error",
+          "message": "No author anywhere — not in schema, not as a visible byline.",
+          "fix": "Add a visible byline and an author node in schema.",
+          "snippet": "\"author\": { \"@type\": \"Person\", \"name\": \"Jane Okafor\", \"url\": \"https://example.com/about/jane\" }"
+        },
+        {
+          "severity": "error",
+          "message": "No published or modified date anywhere in the markup.",
+          "fix": "Show a visible date and mirror it in schema — freshness is a citation signal."
+        }
+      ]
+    },
+    {
+      "id": "qa-structure",
+      "label": "Extractable Q&A",
+      "what": "Question headings with tight answers.",
+      "weight": 10,
+      "score": 0,
+      "earned": 0,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "warn",
+          "message": "No question-formed headings found.",
+          "fix": "Turn at least your key sections into question headings with a direct answer in the first paragraph below."
+        },
+        {
+          "severity": "error",
+          "message": "No Q&A-shaped content at all — nothing here maps onto a user's question.",
+          "fix": "Add a FAQ section (with FAQPage schema) covering the 3–5 questions this page should win."
+        }
+      ]
+    },
+    {
+      "id": "stat-density",
+      "label": "Named-statistic density",
+      "what": "Concrete, quotable facts and figures.",
+      "weight": 12,
+      "score": 0.8,
+      "earned": 10,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "Strong: ~40 concrete figures across 890 words."
+        }
+      ]
+    },
+    {
+      "id": "content-ratio",
+      "label": "Content-to-markup ratio",
+      "what": "Real text vs. wrapper markup.",
+      "weight": 12,
+      "score": 0.013995634307475854,
+      "earned": 0,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "error",
+          "message": "Text-to-HTML ratio is 2.3% (890 words in 243 KB).",
+          "fix": "Cut wrapper markup, inline scripts and boilerplate; more of each byte should be content an engine can use."
+        }
+      ]
+    },
+    {
+      "id": "llms-txt",
+      "label": "llms.txt",
+      "what": "Optional AI-guidance manifest.",
+      "weight": 2,
+      "score": 0,
+      "earned": 0,
+      "status": "info",
+      "findings": [
+        {
+          "severity": "info",
+          "message": "No llms.txt. Optional / low current yield — small penalty only.",
+          "fix": "If you want it: add /llms.txt with a markdown summary of your site's key pages.",
+          "snippet": "# Your Site\n\n> One-line description of what the site is.\n\n## Key pages\n- [Product](https://example.com/product): what it does\n- [Pricing](https://example.com/pricing): plans"
+        }
+      ]
+    }
+  ],
+  "topFixes": [
+    {
+      "rank": 1,
+      "checkId": "crawler-access",
+      "title": "Unblock the AI crawlers",
+      "body": "robots.txt blocks GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended. Allow the AI crawlers you want citations from in robots.txt.",
+      "snippet": "User-agent: GPTBot\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /",
+      "impactPts": 25,
+      "ease": "Easy"
+    },
+    {
+      "rank": 2,
+      "checkId": "qa-structure",
+      "title": "Add extractable Q&A sections",
+      "body": "No question-formed headings found. Turn at least your key sections into question headings with a direct answer in the first paragraph below.",
+      "impactPts": 10,
+      "ease": "Medium"
+    },
+    {
+      "rank": 3,
+      "checkId": "eeat-signals",
+      "title": "Add a visible byline and dates",
+      "body": "No author anywhere — not in schema, not as a visible byline. Add a visible byline and an author node in schema.",
+      "snippet": "\"author\": { \"@type\": \"Person\", \"name\": \"Jane Okafor\", \"url\": \"https://example.com/about/jane\" }",
+      "impactPts": 7,
+      "ease": "Easy"
+    }
+  ],
+  "warnings": [],
+  "meta": {
+    "httpStatus": 200,
+    "durationMs": 174,
+    "bytes": 249165,
+    "redirected": false,
+    "contentType": "text/html; charset=utf-8"
+  }
+}

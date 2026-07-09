@@ -1,0 +1,37 @@
+{
+  "name": "llmscout",
+  "version": "0.1.0",
+  "description": "AI answer-readiness scorer — find out if AI search can quote your page. Scores 0–100 with prioritized fixes.",
+  "keywords": ["seo", "geo", "aeo", "ai-search", "llm", "cli", "chatgpt", "perplexity", "citations"],
+  "license": "MIT",
+  "author": "Anthony Guidry (SCOAEONGEO)",
+  "type": "module",
+  "bin": { "llmscout": "dist/cli/index.js" },
+  "main": "dist/core/index.js",
+  "types": "dist/core/index.d.ts",
+  "files": ["dist", "README.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "bash scripts/start-llmscout.command",
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli/index.ts",
+    "serve": "tsx src/cli/index.ts serve",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "prettier --check src test",
+    "format": "prettier --write src test"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "commander": "^12.1.0",
+    "fastify": "^5.2.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "prettier": "^3.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

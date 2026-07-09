@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "url": "https://en.wikipedia.org/wiki/Search_engine_optimization",
+  "finalUrl": "https://en.wikipedia.org/wiki/Search_engine_optimization",
+  "fetchedAt": "2026-07-09T15:00:02.643Z",
+  "score": 78,
+  "grade": "B-",
+  "gradeLabel": "Mostly ready",
+  "summary": "Mostly ready: the fundamentals are in place, with room on extractable q&a. A short fix list closes the gap.",
+  "checks": [
+    {
+      "id": "crawler-access",
+      "label": "AI crawler access",
+      "what": "Can AI bots fetch the page at all?",
+      "weight": 25,
+      "score": 1,
+      "earned": 25,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "robots.txt allows GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended."
+        }
+      ]
+    },
+    {
+      "id": "answer-first",
+      "label": "Answer-first (BLUF)",
+      "what": "Is the answer in the first 150 words?",
+      "weight": 12,
+      "score": 0.7,
+      "earned": 8,
+      "status": "warn",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "A substantive, quotable answer appears within the first 150 words."
+        }
+      ]
+    },
+    {
+      "id": "json-ld",
+      "label": "JSON-LD schema",
+      "what": "Structured data an engine can parse.",
+      "weight": 8,
+      "score": 1,
+      "earned": 8,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "Valid schema found: Article."
+        }
+      ]
+    },
+    {
+      "id": "heading-hierarchy",
+      "label": "Heading hierarchy",
+      "what": "Clean, ordered H1–H3 outline.",
+      "weight": 10,
+      "score": 1,
+      "earned": 10,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "Single H1: \"Search engine optimization\"."
+        },
+        {
+          "severity": "pass",
+          "message": "No skipped heading levels."
+        }
+      ]
+    },
+    {
+      "id": "eeat-signals",
+      "label": "Author / E-E-A-T",
+      "what": "Named author, dates, credentials.",
+      "weight": 9,
+      "score": 1,
+      "earned": 9,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "Author present in structured data."
+        },
+        {
+          "severity": "pass",
+          "message": "Published/modified dates present in structured data."
+        }
+      ]
+    },
+    {
+      "id": "qa-structure",
+      "label": "Extractable Q&A",
+      "what": "Question headings with tight answers.",
+      "weight": 10,
+      "score": 0,
+      "earned": 0,
+      "status": "error",
+      "findings": [
+        {
+          "severity": "warn",
+          "message": "No question-formed headings found.",
+          "fix": "Turn at least your key sections into question headings with a direct answer in the first paragraph below."
+        },
+        {
+          "severity": "error",
+          "message": "No Q&A-shaped content at all — nothing here maps onto a user's question.",
+          "fix": "Add a FAQ section (with FAQPage schema) covering the 3–5 questions this page should win."
+        }
+      ]
+    },
+    {
+      "id": "stat-density",
+      "label": "Named-statistic density",
+      "what": "Concrete, quotable facts and figures.",
+      "weight": 12,
+      "score": 1,
+      "earned": 12,
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "pass",
+          "message": "Strong: ~801 concrete figures across 5898 words, 9 attributed claims."
+        }
+      ]
+    },
+    {
+      "id": "content-ratio",
+      "label": "Content-to-markup ratio",
+      "what": "Real text vs. wrapper markup.",
+      "weight": 12,
+      "score": 0.45670764507242817,
+      "earned": 5,
+      "status": "warn",
+      "findings": [
+        {
+          "severity": "warn",
+          "message": "Text-to-HTML ratio is 10.2% (5898 words in 386 KB).",
+          "fix": "Cut wrapper markup, inline scripts and boilerplate; more of each byte should be content an engine can use."
+        }
+      ]
+    },
+    {
+      "id": "llms-txt",
+      "label": "llms.txt",
+      "what": "Optional AI-guidance manifest.",
+      "weight": 2,
+      "score": 0,
+      "earned": 0,
+      "status": "info",
+      "findings": [
+        {
+          "severity": "info",
+          "message": "No llms.txt. Optional / low current yield — small penalty only.",
+          "fix": "If you want it: add /llms.txt with a markdown summary of your site's key pages.",
+          "snippet": "# Your Site\n\n> One-line description of what the site is.\n\n## Key pages\n- [Product](https://example.com/product): what it does\n- [Pricing](https://example.com/pricing): plans"
+        }
+      ]
+    }
+  ],
+  "topFixes": [
+    {
+      "rank": 1,
+      "checkId": "qa-structure",
+      "title": "Add extractable Q&A sections",
+      "body": "No question-formed headings found. Turn at least your key sections into question headings with a direct answer in the first paragraph below.",
+      "impactPts": 10,
+      "ease": "Medium"
+    },
+    {
+      "rank": 2,
+      "checkId": "llms-txt",
+      "title": "Add an llms.txt (optional)",
+      "body": "No llms.txt. Optional / low current yield — small penalty only. If you want it: add /llms.txt with a markdown summary of your site's key pages.",
+      "snippet": "# Your Site\n\n> One-line description of what the site is.\n\n## Key pages\n- [Product](https://example.com/product): what it does\n- [Pricing](https://example.com/pricing): plans",
+      "impactPts": 2,
+      "ease": "Easy"
+    },
+    {
+      "rank": 3,
+      "checkId": "content-ratio",
+      "title": "Get real content into the raw HTML",
+      "body": "Text-to-HTML ratio is 10.2% (5898 words in 386 KB). Cut wrapper markup, inline scripts and boilerplate; more of each byte should be content an engine can use.",
+      "impactPts": 7,
+      "ease": "Hard"
+    }
+  ],
+  "warnings": [],
+  "meta": {
+    "httpStatus": 200,
+    "durationMs": 274,
+    "bytes": 395764,
+    "redirected": false,
+    "contentType": "text/html; charset=UTF-8"
+  }
+}

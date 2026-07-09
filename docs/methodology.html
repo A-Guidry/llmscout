@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLMScout methodology — nine checks, weighted to 100, nothing secret</title>
+<meta name="description" content="How LLMScout scores AI answer-readiness: the nine checks, their weights, the grade bands, and the honest rationale behind each — including which popular signals carry little weight.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #E7ECF9; color: #0F1729; font-family: 'Figtree', sans-serif; }
+  input, button, textarea { font-family: inherit; }
+  a { color: #3B5BFF; text-decoration: none; }
+  a:hover { opacity: .7; }
+  ::placeholder { color: #9aa3bd; }
+  pre { margin: 0; }
+  summary { list-style: none; cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+  h1,h2,h3 { font-family: 'Bricolage Grotesque', sans-serif; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 24px 24px 100px; }
+  .panel { background: #F5F7FE; border-radius: 24px; box-shadow: 0 30px 60px -30px rgba(59,91,255,.4); padding: 22px; display: flex; flex-direction: column; gap: 18px; }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; flex-wrap: wrap; gap: 10px; }
+  .brand { font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 800; color: #0F1729; }
+  .pill { padding: 9px 16px; border-radius: 20px; background: #fff; border: 1px solid #E4E9F7; color: #59617A; font-size: 14px; display: inline-block; }
+  .pill.primary { background: #3B5BFF; color: #fff; font-weight: 600; border: none; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .grid3 { grid-template-columns: 1fr; } .hero-flex { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="panel">
+  <div class="nav"><a class="brand" href="./index.html">LLMScout</a><div style="display:flex;gap:10px;align-items:center;"><a class="pill" href="https://github.com/A-Guidry/llmscout">GitHub</a><a class="pill primary" href="./index.html">Scan a page</a></div></div>
+<div style="background:#0F1729;color:#fff;border-radius:14px;padding:12px 20px;font-size:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+<span style="background:#FF6B4A;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:20px;">Static demo</span>
+<span>Pre-scanned example reports. For live scans: <code style="font-family:'Space Mono',monospace;background:rgba(255,255,255,.1);padding:2px 8px;border-radius:6px;">npx llmscout serve</code></span></div>
+  <div style="border-radius:20px;background:linear-gradient(118deg,#3B5BFF 0%,#17C0E0 58%,#7A5BFF 100%);color:#fff;padding:52px 48px;">
+    <span style="display:inline-block;background:rgba(255,255,255,.18);font-size:13px;font-weight:600;letter-spacing:.06em;padding:7px 14px;border-radius:20px;">How the score works</span>
+    <h1 style="font-weight:700;font-size:clamp(32px,4vw,46px);line-height:1.04;margin:20px 0 0;max-width:760px;letter-spacing:-.02em;">Nine checks, weighted to 100. Nothing secret.</h1>
+    <p style="font-size:19px;line-height:1.5;color:rgba(255,255,255,.9);max-width:640px;margin:18px 0 0;">Weights v0.2 (July 2026) are grounded in the published evidence — the GEO paper (KDD 2024), Ahrefs' schema intervention test (May 2026), the Vercel/MERJ crawler study (Dec 2024), Google's generative-AI guidance (May 2026), the SE Ranking llms.txt null result (Nov 2025) — plus our own quoted-vs-control citation tests. We publish every change, including the signals that turned out not to matter.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px;" class="grid-methodology">
+    <div style="background:#fff;border-radius:20px;padding:32px 36px;">
+      <h2 style="font-size:22px;font-weight:700;margin:0 0 6px;">The 9 checks &amp; their weight</h2>
+      <p style="font-size:14px;color:#8891a8;margin:0 0 18px;">Each check earns a fraction of its weight based on how well the page performs. Weights are normalized to a 0–100 score.</p>
+      <div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">AI crawler access</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Can AI bots fetch the page at all?</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">25</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:100%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">Gate condition: a page that GPTBot, ClaudeBot or PerplexityBot cannot fetch can never be cited, regardless of quality. Highest weight in the rubric.</p>
+<div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">Answer-first (BLUF)</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Is the answer in the first 150 words?</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">12</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:48%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">AI engines lift self-contained passages. Pages that state the answer up top get quoted; pages that bury it under a long intro get skipped or paraphrased without credit.</p>
+<div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">JSON-LD schema</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Structured data an engine can parse.</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">8</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:32%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">JSON-LD is the cleanest machine-readable statement of what a page is, who wrote it and when. High-value types (Article, FAQPage, Product) map directly onto answer surfaces.</p>
+<div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">Heading hierarchy</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Clean, ordered H1–H3 outline.</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">10</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:40%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">Headings are how engines chunk a page into liftable passages. A broken outline (multiple H1s, skipped levels) breaks that chunking.</p>
+<div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">Author / E-E-A-T</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Named author, dates, credentials.</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">9</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:36%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">Engines deciding whom to quote lean on named authorship and freshness. Anonymous, undated pages are quoted last.</p>
+<div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">Extractable Q&amp;A</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Question headings with tight answers.</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">10</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:40%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">Question-shaped sections map one-to-one onto the questions people ask AI engines. A question heading followed by a tight answer is the most liftable unit on the web.</p>
+<div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">Named-statistic density</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Concrete, quotable facts and figures.</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">12</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:48%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">When an engine cites a page it usually quotes a concrete claim — a number, a date, a named finding. Vague prose gives it nothing to quote.</p>
+<div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">Content-to-markup ratio</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Real text vs. wrapper markup.</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">12</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:48%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">Engines tokenize your raw HTML. Div soup and script-heavy shells bury the content; some JS-only pages ship no content at all.</p>
+<div style="display:grid;grid-template-columns:1fr 54px 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #EEF1FA;">
+    <div><div style="font-size:15px;font-weight:700;">llms.txt</div><div style="font-size:12.5px;color:#8891a8;margin-top:1px;">Optional AI-guidance manifest.</div></div>
+    <div style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#3B5BFF;">2</div>
+    <div style="height:8px;background:#EEF1FA;border-radius:99px;overflow:hidden;"><div style="height:100%;width:8%;background:linear-gradient(90deg,#3B5BFF,#7A5BFF);border-radius:99px;"></div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.5;color:#59617A;margin:2px 0 10px;">Honestly weighted: we have not observed llms.txt moving citation behavior yet, so it carries the lowest weight in the rubric. Cheap to add, small upside, no penalty drama.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="background:#0F1729;color:#fff;border-radius:20px;padding:28px 30px;">
+        <h2 style="font-size:19px;font-weight:700;margin:0 0 16px;">Grade bands</h2>
+        <div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.1);">
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;width:44px;color:#4ADE80;">A</span>
+    <div style="flex:1;"><div style="font-size:14px;font-weight:600;">Answer-ready</div><div style="font-size:12.5px;color:#8891a8;">90–100 · engines cite you freely</div></div>
+  </div>
+<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.1);">
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;width:44px;color:#8FA6FF;">B</span>
+    <div style="flex:1;"><div style="font-size:14px;font-weight:600;">Mostly ready</div><div style="font-size:12.5px;color:#8891a8;">75– · minor gaps</div></div>
+  </div>
+<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.1);">
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;width:44px;color:#FBBF24;">C</span>
+    <div style="flex:1;"><div style="font-size:14px;font-weight:600;">Partly ready</div><div style="font-size:12.5px;color:#8891a8;">60– · real gaps to close</div></div>
+  </div>
+<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.1);">
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;width:44px;color:#FB923C;">D</span>
+    <div style="flex:1;"><div style="font-size:14px;font-weight:600;">Hard to quote</div><div style="font-size:12.5px;color:#8891a8;">40– · structural work needed</div></div>
+  </div>
+<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.1);">
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;width:44px;color:#F87171;">F</span>
+    <div style="flex:1;"><div style="font-size:14px;font-weight:600;">Invisible</div><div style="font-size:12.5px;color:#8891a8;">0– · engines skip you</div></div>
+  </div>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:28px 30px;">
+        <h2 style="font-size:19px;font-weight:700;margin:0 0 10px;">What we don't do</h2>
+        <p style="font-size:14.5px;line-height:1.55;color:#59617A;margin:0;">No keyword stuffing advice, no backlink games, no black-box AI score. We only report signals you can verify in your own page source — and we show you exactly where each one came from.</p>
+        <h2 style="font-size:19px;font-weight:700;margin:18px 0 10px;">What the score can't measure</h2>
+        <p style="font-size:14.5px;line-height:1.55;color:#59617A;margin:0;">Domain authority. In our live tests, engines cited major banks, hospitals and .gov sites even when their on-page readiness scored an F. LLMScout measures the on-page half you control; it predicts citations best among comparable-authority sites competing on the same topic — which is exactly where most sites compete.</p>
+      </div>
+    </div>
+  </div>
+  <div style="background:#fff;border-radius:20px;padding:32px 36px;">
+    <h2 style="font-size:22px;font-weight:700;margin:0 0 20px;">How a scan runs</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;" class="grid3"><div style="border-radius:16px;background:#F5F7FE;padding:22px;">
+    <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#3B5BFF;">STEP 1</div>
+    <div style="font-size:16px;font-weight:700;margin:10px 0 6px;">Fetch as a bot</div>
+    <p style="font-size:13.5px;line-height:1.5;color:#8891a8;margin:0;">We request the page the way an AI crawler would — no JavaScript execution — and check whether we even get in.</p>
+  </div>
+<div style="border-radius:16px;background:#F5F7FE;padding:22px;">
+    <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#3B5BFF;">STEP 2</div>
+    <div style="font-size:16px;font-weight:700;margin:10px 0 6px;">Parse the raw HTML</div>
+    <p style="font-size:13.5px;line-height:1.5;color:#8891a8;margin:0;">Headings, schema, dates, authorship and text are pulled straight from source, not a rendered screenshot.</p>
+  </div>
+<div style="border-radius:16px;background:#F5F7FE;padding:22px;">
+    <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#3B5BFF;">STEP 3</div>
+    <div style="font-size:16px;font-weight:700;margin:10px 0 6px;">Score each check</div>
+    <p style="font-size:13.5px;line-height:1.5;color:#8891a8;margin:0;">Every check returns a 0–1 quality score, multiplied by its weight. Nothing is subjective or model-guessed.</p>
+  </div>
+<div style="border-radius:16px;background:#F5F7FE;padding:22px;">
+    <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#3B5BFF;">STEP 4</div>
+    <div style="font-size:16px;font-weight:700;margin:10px 0 6px;">Rank the fixes</div>
+    <p style="font-size:13.5px;line-height:1.5;color:#8891a8;margin:0;">We sort gaps by impact × effort so the top of your list is always the fastest route to a higher grade.</p>
+  </div></div>
+  </div>
+</div>
+</div>
+</body>
+</html>
